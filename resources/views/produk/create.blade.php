@@ -30,6 +30,20 @@
                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-4">
+                <label for="paragraph" class="block text-gray-700 font-medium mb-2">Deskripsi Produk</label>
+                <textarea 
+                    id="paragraph" 
+                    name="paragraph" 
+                    rows="4"
+                    class="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-y"
+                    placeholder="Masukkan deskripsi produk..."
+                    required
+                ></textarea>
+                @error('paragraph')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="flex justify-end">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">Simpan</button>
             </div>

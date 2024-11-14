@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(3);
         return view('produk.index', compact('products'));
     }
 
@@ -27,6 +27,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+             'paragraph' => 'required'
         ]);
 
         $logoPath = $request->file('logo')->store('logos', 'public');
@@ -34,6 +35,7 @@ class ProductController extends Controller
         Product::create([
             'name' => $request->name,
             'logo' => $logoPath,
+            'paragraph' => $request->paragraph,
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
@@ -43,7 +45,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         
-        // Hapus file logo dari storage
+        
         if ($product->logo) {
             Storage::disk('public')->delete($product->logo);
         }
@@ -53,7 +55,7 @@ class ProductController extends Controller
     }
 
     public function edit($id) {
-        $product = Product::find($id); // Ganti 'Produk' dengan nama model kamu jika berbeda
+        $product = Product::find($id); 
         if (!$product) {
             return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
         }
@@ -65,11 +67,13 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:10000',
+            'paragraph' => 'required|string',
         ]);
 
         $produk = Product::findOrFail($id);
         $produk->name = $request->name;
+        $produk->paragraph = $request->paragraph;
 
         if ($request->hasFile('logo')) {
             if ($produk->logo) {
@@ -93,12 +97,12 @@ class ProductController extends Controller
 
     public function tambahKeterangan()
     {
-        return view('produk.tambah_keterangan'); // Sesuaikan dengan nama file view kamu
+        return view('produk.tambah_keterangan'); 
     }
     
     public function simpanKeterangan(Request $request)
 {
-    // Validasi input
+    
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
@@ -106,13 +110,13 @@ class ProductController extends Controller
         'fileUpload' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,avi,mkv|max:2048',
     ]);
 
-    // Simpan data keterangan
+    
     $keterangan = new Keterangan;
     $keterangan->title = $validated['title'];
     $keterangan->description = $validated['description'];
     $keterangan->jenis_keterangan = $validated['jenisKeterangan'];
     
-    // Jika ada file yang diupload
+
     if ($request->hasFile('fileUpload')) {
         $file = $request->file('fileUpload');
         $path = $file->store('uploads', 'public');
@@ -121,9 +125,14 @@ class ProductController extends Controller
 
     $keterangan->save();
 
-    // Redirect atau tampilkan pesan sukses
+
     return redirect()->route('produk.tambah_keterangan')->with('success', 'Keterangan berhasil ditambahkan!');
 }
 
-           
+public function produkList()
+{
+    $products = Product::paginate(3); 
+    return view('produk.produk_list', compact('products')); 
+}
+
 }

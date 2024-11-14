@@ -52,6 +52,11 @@
                         <i class="fas fa-plus mr-2"></i>
                         <a href="{{ route('produk.create') }}">Tambah Produk</a>
                     </button>
+                    <button>
+                    <a href="{{ route('produk.produk_list') }}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300 block text-center">
+                    <i class="fas fa-globe mr-2"></i>halaman pengunjung
+                     </a>
+                    </button>
                     <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-orange-700 transition hover-scale flex items-center">
                         <i class="fas fa-user-plus mr-2"></i>
                         <a href="{{ route('register') }}">Tambah Akses</a>
@@ -69,13 +74,17 @@
                     Produk Kami
                 </h1>
 
-                <div class="overflow-x-auto shadow-xl rounded-lg animate__animated animate__fadeIn animate__delay-0.5s">
+                <div class="overflow-x-auto shadow-xl rounded-lg animate__animated animate__fadeIn animate__">
+                <div class="mt-4 flex justify-start  animate__animated animate__fadeIn animate__">
+                 {{ $products->links('pagination::simple-tailwind') }}
+                  </div>
+                  <br>
                     <table class="min-w-full bg-white overflow-hidden">
                         <thead class="bg-gray-800 text-white">
                             <tr>
                                 <th class="py-3 px-6 text-left font-semibold">Logo</th>
                                 <th class="py-3 px-6 text-left font-semibold">Nama Produk</th>
-                                <th class="py-3 px-6 text-center font-semibold">Aksi</th>
+                                <th class="py-3 px-6 text-center font-semibold"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +96,7 @@
                                     <td class="py-4 px-6 text-gray-700 font-medium">{{ $product->name }}</td>
                                     <td class="py-4 px-6 flex justify-center space-x-4">
                                     <a href="{{ route('produk.show', $product->id) }}" class="btn btn-primary bg-secondary text-white px-4 py-2 rounded-md hover:bg-orange-600 transition hover-scale flex items-center">
-                                     <i class="fas fa-eye "></i> Detail
+                                     <i class="fas fa-eye mr-2"></i> Detail
                                    </a>
                                     <a href="{{ route('produk.edit', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
                                       <i class="fas fa-edit mr-2 "></i>
@@ -96,7 +105,7 @@
                                         <form action="{{ route('produk.destroy', $product->id) }}" method="POST" style="display:inline;">
                                          @csrf
                                          @method('DELETE')
-                                       <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">Hapus</button>
+                                       <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');"><i class="fas fa-trash-alt mr-2"></i>Hapus</button>
                                      </form>
                                     </td>
                                 </tr>
