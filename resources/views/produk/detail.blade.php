@@ -77,7 +77,7 @@
                 <td class="py-6 px-6 text-gray-700 font-medium">Deskripsi</td>
                 <td class="py-6 px-6 text-gray-600">{{ $produk->description ?? 'Deskripsi produk tidak tersedia.' }}</td>
                 <td class="py-6 px-6 flex justify-center space-x-4">
-                  <button @click="showModal = true; modalContent = '{{ $produk->description }}'"
+                  <button @click="showModal = true; modalContent = '# '"
                     class="bg-secondary text-white px-6 py-2 rounded-full shadow-md hover:bg-orange-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400">
                     <i class="fas fa-eye mr-2"></i> Detail
                   </button>
@@ -85,7 +85,7 @@
                     class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <i class="fas fa-edit mr-2"></i> Edit
                   </a>
-                  <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                  <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit"

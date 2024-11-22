@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(3);
+        $products = Product::paginate(6);
         return view('produk.index', compact('products'));
     }
 
@@ -131,8 +131,17 @@ class ProductController extends Controller
 
 public function produkList()
 {
-    $products = Product::paginate(3); 
+    $products = Product::paginate(6); 
     return view('produk.produk_list', compact('products')); 
+}
+
+public function detail($id)
+{
+    // Mengambil produk berdasarkan ID
+    $product = Product::findOrFail($id);
+
+    // Mengembalikan view dengan data produk
+    return view('produk.produk_detail', compact('product'));
 }
 
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Keterangan Produk</title>
+    <title>tambah Keterangan Produk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .floating-label input:not(:placeholder-shown) + label,

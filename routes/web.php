@@ -39,3 +39,6 @@ Route::post('/produk/tambah-keterangan', [ProductController::class, 'simpanKeter
 
 // route halaman pengujung
 Route::get('/produk-list', [ProductController::class, 'produkList'])->name('produk.produk_list');
+
+// route yang mengarah ke halaman produk_detail.blade.php
+Route::get('/produk/{id}', [ProductController::class, 'detail'])->name('produk.detail');
