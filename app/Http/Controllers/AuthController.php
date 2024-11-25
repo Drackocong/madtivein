@@ -12,13 +12,13 @@ class AuthController extends Controller
     // Menampilkan halaman register
     public function showRegisterForm()
     {
-        return view('auth.register'); 
+        return view('auth.register');
     }
 
     // Menampilkan halaman login
     public function showLoginForm()
     {
-        return view('auth.login'); 
+        return view('auth.login');
     }
 
     public function register(Request $request)
@@ -45,11 +45,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
+
             // Redirect ke halaman index setelah login berhasil
             return redirect()->intended(route('produk.index'));
         }
-    
+
         return back()->withErrors([
             'username' => 'Username atau password salah.',
         ])->withInput($request->only('username'));
@@ -58,10 +58,10 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
-        return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
+
+        return redirect()->route('logout')->with('success', 'Anda telah berhasil logout.');
     }
 }

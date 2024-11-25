@@ -37,6 +37,40 @@
       border: 1px solid rgba(255, 255, 255, 0.18);
     }
   </style>
+
+<head>
+    <style>
+    .mainmenubtn {
+        background-color: skyblue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding:20px;
+        margin-top:20px;
+    }
+    .mainmenubtn:hover {
+        background-color: blue;
+        }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-child {
+        display: none;
+        background-color: skyblue;
+        min-width: 200px;
+    }
+    .dropdown-child a {
+        color: blue;
+        padding: 20px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown:hover .dropdown-child {
+        display: block;
+    }
+    </style>
+
 </head>
 <body class="font-sans bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-100 min-h-screen">
 <main x-data="{ showModal: false, modalContent: '' }">
@@ -54,6 +88,21 @@
         <a href="{{ route('produk.tambah_keterangan') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
           Tambah
         </a>
+
+        <a href="{{ route('produk.tambah_version') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
+            Tambah version
+          </a>
+          <div class="dropdown">
+            <button class="mainmenubtn">VERSION</button>
+            <div class="dropdown-child">
+ @foreach ($version as $item)
+
+
+              <a href="">{{ $item->name }}</a>
+              @endforeach
+            </div>
+          </div>
+
       </div>
 
       <h1 class="text-5xl md:text-6xl font-bold text-center text-gray-800 mb-16 animate__animated animate__fadeInDown animate__delay-1s">
@@ -71,28 +120,38 @@
                 <th class="py-4 px-6 text-center font-semibold text-lg">Aksi</th>
               </tr>
             </thead>
+
+            @foreach ($Keterangan as $product )
+
             <tbody>
               <!-- Isi tabel diambil dari data produk -->
               <tr class="border-b border-blue-100 hover:bg-blue-50 transition duration-300">
-                <td class="py-6 px-6 text-gray-700 font-medium">Deskripsi</td>
-                <td class="py-6 px-6 text-gray-600">{{ $produk->description ?? 'Deskripsi produk tidak tersedia.' }}</td>
+
+                <td class="py-6 px-6 text-gray-700 font-medium">{{ $product->title }}</td>
+
+                <td class="py-6 px-6 text-gray-600">{{ $product->description}}</td>
+
+
                 <td class="py-6 px-6 flex justify-center space-x-4">
-                  <button @click="showModal = true; modalContent = '# '"
-                    class="bg-secondary text-white px-6 py-2 rounded-full shadow-md hover:bg-orange-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-400">
-                    <i class="fas fa-eye mr-2"></i> Detail
-                  </button>
-                  <a href="#"
+                    <a href="{{ route('produk.detail', $product->id) }}"
                     class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <i class="fas fa-edit mr-2"></i> Edit
+                    <i class="fas fa-detail mr-2"></i> Detail
                   </a>
-                  <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+
+                  <a href="{{ route('produk.edit', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
+                    <i class="fas fa-edit mr-2 "></i>
+                      Edit
+                    </a>
+                  <form action="{{ route('produk.destroy', $product->title) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
                       class="bg-red-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-red-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400">
                       <i class="fas fa-trash-alt mr-2"></i> Hapus
                     </button>
-                  </form>
+
+                </form>
+                @endforeach
                 </td>
               </tr>
             </tbody>
@@ -102,30 +161,7 @@
     </div>
   </section>
 
-  <!-- Modal untuk Detail Keterangan -->
-  <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:leave="transition ease-in duration-200">
-    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-      <div class="fixed inset-0 bg-gray-500 opacity-75" @click="showModal = false"></div>
-      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-      <div class="inline-block align-bottom bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div class="sm:flex sm:items-start">
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">Detail Keterangan</h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500" x-text="modalContent"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-          <button type="button" @click="showModal = false"
-            class="w-full inline-flex justify-center rounded-md px-4 py-2 bg-primary text-white hover:bg-blue-700 sm:ml-3 sm:w-auto sm:text-sm">
-            Tutup
-          </button>
-        </div>
+
       </div>
     </div>
   </div>

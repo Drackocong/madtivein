@@ -61,13 +61,13 @@
                         <i class="fas fa-user-plus mr-2"></i>
                         <a href="{{ route('register') }}">Tambah Akses</a>
                     </button>
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-    @csrf
-    <button type="submit" id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition hover-scale flex items-center">
-        <i class="fas fa-sign-out-alt mr-2"></i>
-        Logout
-    </button>
-</form>
+                    {{-- <form action="{{ route('logout') }}" method="POST" class="inline"> --}}
+                      @csrf
+                <button type="submit" id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition hover-scale flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </button>
+            </form>
                 </div>
 
                 <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12 animate__animated animate__fadeInUp animate__delay-0.5s">
@@ -95,13 +95,13 @@
                                     </td>
                                     <td class="py-4 px-6 text-gray-700 font-medium">{{ $product->name }}</td>
                                     <td class="py-4 px-6 flex justify-center space-x-4">
-                                    <a href="{{ route('produk.show', $product->id) }}" class="btn btn-primary bg-secondary text-white px-4 py-2 rounded-md hover:bg-orange-600 transition hover-scale flex items-center">
-                                     <i class="fas fa-eye mr-2"></i> Detail
-                                   </a>
-                                    <a href="{{ route('produk.edit', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
-                                      <i class="fas fa-edit mr-2 "></i>
-                                        Edit
-                                      </a>
+                                        <a href="{{ route('produk.show',['id'=>$product->id,'product'=>$product->name]) }}" class="btn btn-primary bg-secondary text-white px-4 py-2 rounded-md hover:bg-orange-600 transition hover-scale flex items-center">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                          </a>
+                                   <a href="{{ route('produk.edit', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
+                                    <i class="fas fa-edit mr-2 "></i>
+                                      Edit
+                                    </a>
                                         <form action="{{ route('produk.destroy', $product->id) }}" method="POST" style="display:inline;">
                                          @csrf
                                          @method('DELETE')

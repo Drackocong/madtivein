@@ -185,9 +185,7 @@
               id: "keterangan",
               title: "Keterangan",
               content: `
-                <p class="text-gray-600">
-                  Keterangan produk akan ditampilkan di sini. Anda dapat menjelaskan tentang fitur-fitur produk, manfaatnya, dan mengapa pelanggan harus membelinya. Tambahkan detail yang relevan untuk menarik minat calon pembeli.
-                </p>
+
               `,
             },
             {
