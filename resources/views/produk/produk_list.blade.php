@@ -37,7 +37,7 @@
                 </p>
 
                 <!-- Menampilkan jumlah produk yang sedang dilihat -->
-             
+
               <!-- Pagination Atas -->
               <div class="mt-4 flex justify-start animate__animated animate__zoomIn animate__">
               {{ $products->links('pagination::simple-tailwind') }}

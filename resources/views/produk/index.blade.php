@@ -61,7 +61,7 @@
                         <i class="fas fa-user-plus mr-2"></i>
                         <a href="{{ route('register') }}">Tambah Akses</a>
                     </button>
-                    {{-- <form action="{{ route('logout') }}" method="POST" class="inline"> --}}
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
                       @csrf
                 <button type="submit" id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition hover-scale flex items-center">
                     <i class="fas fa-sign-out-alt mr-2"></i>

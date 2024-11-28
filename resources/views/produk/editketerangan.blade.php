@@ -30,7 +30,7 @@
 
         <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
             <form
-                action="{{ route('produk.update', $product->id) }}"
+                action="{{ route('produk.updateketerangan', $product->title) }}"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -40,49 +40,30 @@
                 <!-- Nama Produk -->
                 <div class="mb-6">
                     <label for="name" class="block text-gray-700 font-medium mb-2">
-                        Nama Produk
+                        judul
                     </label>
                     <input
                         type="text"
-                        name="name"
-                        id="name"
-                        value="{{ old('name', $product->name) }}"
+                        name="title"
+                        id="title"
+                        value="{{ old('name', $product->title) }}"
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         required
                     >
                 </div>
 
-                <!-- Logo Produk -->
-                <div class="mb-6">
-                    <label for="logo" class="block text-gray-700 font-medium mb-2">
-                        Logo Produk
-                    </label>
-                    <input
-                        type="file"
-                        name="logo"
-                        id="logo"
-                        class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                    <div class="mt-4">
-                        <img
-                            src="{{ asset('storage/' . $product->logo) }}"
-                            alt="{{ $product->name }}"
-                            class="w-24 h-24 rounded-full border-2 border-gray-300"
-                        >
-                    </div>
-                </div>
 
-                <!-- Paragraph -->
+
                 <div class="mb-6">
                     <label for="paragraph" class="block text-gray-700 font-medium mb-2">
-                        Paragraph
+                        deskripsi
                     </label>
                     <textarea
-                        id="paragraph"
-                        name="paragraph"
+                        id="description"
+                        name="description"
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         required
-                    >{{ $product->paragraph }}</textarea>
+                    >{{ $product->description }}</textarea>
                 </div>
 
                 <!-- Tombol Simpan -->

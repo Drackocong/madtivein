@@ -23,16 +23,22 @@ Route::get('/produk', [ProductController::class, 'index'])->middleware('auth')->
 Route::get('/produk/create', [ProductController::class, 'create'])->middleware('auth')->name('produk.create');
 Route::post('/produk/store', [ProductController::class, 'store'])->middleware('auth')->name('produk.store');
 
-// Rute untuk edit produk - hanya bisa diakses setelah login
-Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('produk.edit');
-Route::put('/produk/{id}', [ProductController::class, 'update'])->middleware('auth')->name('produk.update');
+// // Rute untuk edit produk - hanya bisa diakses setelah login
+// Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('produk.edit');
+// Route::put('/produk/{id}', [ProductController::class, 'update'])->middleware('auth')->name('produk.update');
 
 // Route::get('/produk/{idketerangan}/edit', [ProductController::class, 'editketerangan'])->middleware('auth')->name('produk.editketerangan');
 // Route::put('/produk/{idketerangan}', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
 
 // Rute untuk hapus produk - hanya bisa diakses setelah login
-Route::get('/produk/{id}/edit', [ProductController::class, 'editketerangan'])->middleware('auth')->name('produk.edit');
-Route::put('/produk/{id}', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.update');
+Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('produk.edit');
+Route::put('/produk/{id}', [ProductController::class, 'updateproduk'])->middleware('auth')->name('produk.updateproduk');
+
+
+
+Route::get('/produk/{id}/ediketerangan', [ProductController::class, 'editketerangan'])->middleware('auth')->name('produk.editketerangan');
+Route::put('/produk/{id}', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
+
 
 Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
 
@@ -47,7 +53,7 @@ Route::post('/produk/tambah_version', [ProductController::class, 'simpanversion'
 
 route::get('/logout',[AuthController::class,'auth'])->middleware('auth')->name ('logout');
 
-Route::post('/auth/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logoutt');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logoutt');
 
 // Rute detail produk - hanya bisa diakses setelah login
 Route::get('/produk/{id}/{product}', [ProductController::class, 'show'])->middleware('auth')->name('produk.show');
@@ -65,4 +71,4 @@ Route::get('/produk/{id}', [ProductController::class, 'detail'])->name('produk.d
 
 // route yang mengarah ke halaman produk_detail.blade.php
 Route::get('/produk/{id}/detail', [ProductController::class, 'produkdetail'])->name('produk.detailm');
-
+Route::get('produk/{id}/{name}/{version}', [ProductController::class, 'produkdetail'])->name('produk.produk_detail');

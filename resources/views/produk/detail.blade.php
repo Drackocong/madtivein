@@ -93,12 +93,13 @@
             Tambah version
           </a>
           <div class="dropdown">
-            <button class="mainmenubtn">VERSION</button>
+            <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">VERSION</button>
             <div class="dropdown-child">
- @foreach ($version as $item)
+            @foreach ($version as $product)
 
 
-              <a href="">{{ $item->name }}</a>
+            <a href="/version">{{ $product->name }}</a>
+
               @endforeach
             </div>
           </div>
@@ -138,11 +139,11 @@
                     <i class="fas fa-detail mr-2"></i> Detail
                   </a>
 
-                  <a href="{{ route('produk.edit', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
-                    <i class="fas fa-edit mr-2 "></i>
-                      Edit
-                    </a>
-                  <form action="{{ route('produk.destroy', $product->title) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                    <a href="{{ route('produk.editketerangan', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
+                                    <i class="fas fa-edit mr-2 "></i>
+                                      Edit
+                                    </a>
+                  <form action="{{ route('produk.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit"

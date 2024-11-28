@@ -71,15 +71,15 @@ class ProductController extends Controller
     }
 
     public function edit($id) {
-        $product = Product::find($id);
+        $product = Produk::find($id);
         if (!$product) {
             return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
         }
-        return view('produk.edit', compact('product'));
+        return view('produk.edit', compact('keterangan'));
     }
 
 
-    public function update(Request $request, $id)
+    public function updateproduk(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -87,20 +87,20 @@ class ProductController extends Controller
             'paragraph' => 'required|string',
         ]);
 
-        $produk = Product::findOrFail($id);
-        $produk->name = $request->name;
-        $produk->paragraph = $request->paragraph;
+        $product = Keterangan::findOrFail($id);
+        $product->name = $request->name;
+        $product->paragraph = $request->paragraph;
 
         if ($request->hasFile('logo')) {
-            if ($produk->logo) {
-                Storage::disk('public')->delete($produk->logo);
+            if ($product->logo) {
+                Storage::disk('public')->delete($product->logo);
             }
 
             $path = $request->file('logo')->store('logos', 'public');
-            $produk->logo = $path;
+            $product->logo = $path;
         }
 
-        $produk->save();
+        $product->save();
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui!');
     }
@@ -109,12 +109,34 @@ class ProductController extends Controller
 
 
     public function editketerangan($id) {
-        $product = Product::find($id);
+        $product = Keterangan::find($id);
         if (!$product) {
             return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
         }
-        return view('produk.edit', compact('product'));
+        return view('produk.editketerangan', compact('product'));
     }
+
+
+
+
+
+    public function version1($id) {
+
+
+        $product = Keterangan::find($id);
+
+        return view('produk.editketerangan', compact('product'));
+    }
+
+
+    public function version2($id) {
+
+
+        $product = Keterangan::find($id);
+
+        return view('produk.editketerangan', compact('product'));
+    }
+
 
 
     public function updateketerangan(Request $request, $id)
@@ -125,20 +147,20 @@ class ProductController extends Controller
             'paragraph' => 'required|string',
         ]);
 
-        $produk = Product::findOrFail($id);
-        $produk->name = $request->name;
-        $produk->paragraph = $request->paragraph;
+        $product = Product::findOrFail($id);
+        $product->title = $request->title;
+        $product->description = $request->description;
 
         if ($request->hasFile('logo')) {
-            if ($produk->logo) {
-                Storage::disk('public')->delete($produk->logo);
+            if ($product->logo) {
+                Storage::disk('public')->delete($product->logo);
             }
 
             $path = $request->file('logo')->store('logos', 'public');
-            $produk->logo = $path;
+            $product->logo = $path;
         }
 
-        $produk->save();
+        $product->save();
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui!');
     }
@@ -154,6 +176,8 @@ class ProductController extends Controller
 
          // Get Keterangan records where title is 'medisy'
        $Keterangan = Keterangan::where('title', $product)->get() ;// Memfilter berdasarkan status produkget();
+
+
         return view('produk.detail', compact('produk','version','Keterangan'));
     }
 
@@ -208,9 +232,10 @@ public function detail($id)
 {
     // Mengambil produk berdasarkan ID
     $product = Product::findOrFail($id);
+    $version= version::all();
 
     // Mengembalikan view dengan data produk
-    return view('produk.produk_detail', compact('product'));
+    return view('produk.produk_detail', compact('product','version'));
 }
 
 
@@ -219,9 +244,13 @@ public function produkdetail($id)
 {
     // Mengambil produk berdasarkan ID
     $product = Product::findOrFail($id);
+    $version= version::all();
+
+    $version =version::where('name', $version)->get() ;// Memfilter berdasarkan status produkget();
 
     // Mengembalikan view dengan data produk
-    return view('produk.produk_detail', compact('product'));
+   // Melakukan sesuatu dengan data produk atau parameter lainnya
+   return view('produk.detail', compact('product','idproduk'));
 }
 
  public function simpanversion(Request $request)
@@ -230,6 +259,7 @@ public function produkdetail($id)
 
     $request->validate([
         'name' => 'required|string|max:255',
+
 
     ]);
 

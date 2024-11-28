@@ -54,50 +54,22 @@
           ></span>
         </h1>
         <!-- Dropdown Menu -->
-        <div class="relative" x-data="{ open: false }">
-          <button
-            @click="open = !open"
-            class="text-white hover:text-yellow-300 transition-colors duration-200"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 6.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12 12a.75.75 0 100-1.5.75.75 0 000 1.5zM12 17.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
-              />
-            </svg>
-          </button>
-          <!-- Dropdown content -->
-          <div
-            x-show="open"
-            @click.away="open = false"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 transform scale-95"
-            x-transition:enter-end="opacity-100 transform scale-100"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 transform scale-100"
-            x-transition:leave-end="opacity-0 transform scale-95"
-            class="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg py-2 z-10"
-          >
-            <a
-              href="#versi1"
-              class="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition-colors duration-200"
-              >Versi 1</a
-            >
-            <a
-              href="#versi2"
-              class="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition-colors duration-200"
-              >Versi 2</a
-            >
+
+        <div class="dropdown">
+            <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">VERSION</button>
+            <div class="dropdown-child">
+          @foreach ($version as $product)
+
+
+              <a href="/version">{{ $product->name }}</a>
+
+              @endforeach
+            </div>
           </div>
-        </div>
+
+
+
+
       </div>
 
       <div class="flex flex-col lg:flex-row gap-8">
@@ -184,9 +156,7 @@
             {
               id: "keterangan",
               title: "Keterangan",
-              content: `
 
-              `,
             },
             {
               id: "fitur",
