@@ -25,7 +25,8 @@
     </style>
   </head>
   <body
-    class="bg-gradient-to-r from-blue-500 to-purple-500 min-h-screen flex items-center justify-center"
+  class="bg-gradient-to-br flex from-blue-100 via-indigo-200 items-center justify-center to-purple-100 min-h-screen">
+
   >
     <div
       class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md transform transition hover:scale-105"
@@ -112,7 +113,7 @@
       <form action="{{ route('produk.simpan_keterangan') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- Input fields di sini -->
-    <button type="submit">Simpan</button>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 float-right">Simpan</button>
    </form>
 
       </form>

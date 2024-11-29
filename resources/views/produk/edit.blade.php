@@ -24,13 +24,13 @@
         };
     </script>
 </head>
-<body class="font-sans bg-blue-500 min-h-screen flex items-center justify-center">
+<body class="font-sans bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-100 min-h-screen">
     <div class="container mx-auto px-6 py-8">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Edit Produk</h2>
 
         <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
             <form
-                action="{{ route('produk.updateproduk', $produk->id) }}"
+                action="{{ route('produk.updateproduk', $product->id) }}"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -46,13 +46,13 @@
                         type="text"
                         name="name"
                         id="name"
-                        value="{{ old('name', $produk->name) }}"
+                        value="{{ old('name', $product->name) }}"
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         required
                     >
                 </div>
-{{--
-                <!-- Logo Produk -->
+
+
                 <div class="mb-6">
                     <label for="logo" class="block text-gray-700 font-medium mb-2">
                         Logo Produk
@@ -65,12 +65,12 @@
                     >
                     <div class="mt-4">
                         <img
-                            src="{{ asset('storage/' . $produk->logo) }}"
-                            alt="{{ $produk->name }}"
+                            src="{{ asset('storage/' . $product->logo) }}"
+                            alt="{{ $product->name }}"
                             class="w-24 h-24 rounded-full border-2 border-gray-300"
                         >
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Paragraph -->
                 <div class="mb-6">

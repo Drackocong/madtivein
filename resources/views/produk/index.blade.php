@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body class="font-sans bg-gradient-to-br from-blue-100 via-indigo-200">
     <header class="bg-white shadow-md animate__animated animate__fadeInDown">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
@@ -44,7 +44,7 @@
         </nav>
     </header>
 
-    <main class="gradient-bg min-h-screen">
+    <main class="to-purple-100 min-h-screen">
         <section class="py-20">
             <div class="container mx-auto px-4">
                 <div class="flex justify-end mb-8 space-x-4 animate__animated animate__fadeInRight animate__delay-0.3s">
@@ -71,7 +71,7 @@
                 </div>
 
                 <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-12 animate__animated animate__fadeInUp animate__delay-0.5s">
-                    Produk Kami
+                    Halaman Admin
                 </h1>
 
                 <div class="overflow-x-auto shadow-xl rounded-lg animate__animated animate__fadeIn animate__">
@@ -102,7 +102,7 @@
                                     <i class="fas fa-edit mr-2 "></i>
                                       Edit
                                     </a>
-                                        <form action="{{ route('produk.destroy', $product->id) }}" method="POST" style="display:inline;">
+                                        <form action="{{ route('produk.hapusketerangan', $product->id) }}" method="POST" style="display:inline;">
                                          @csrf
                                          @method('DELETE')
                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');"><i class="fas fa-trash-alt mr-2"></i>Hapus</button>

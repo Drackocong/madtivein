@@ -97,14 +97,17 @@
             <div class="dropdown-child">
             @foreach ($version as $product)
 
-
-            <a href="/version">{{ $product->name }}</a>
+    <a href="/version">{{ $product->name }}</a>
 
               @endforeach
             </div>
           </div>
 
       </div>
+
+      <h1 class="font-bold mb-16">
+        V.1
+      </h1>
 
       <h1 class="text-5xl md:text-6xl font-bold text-center text-gray-800 mb-16 animate__animated animate__fadeInDown animate__delay-1s">
         Keterangan Produk
@@ -134,7 +137,7 @@
 
 
                 <td class="py-6 px-6 flex justify-center space-x-4">
-                    <a href="{{ route('produk.detail', $product->id) }}"
+                    <a href="{{ route('produk.produk_list', $product->id) }}"
                     class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <i class="fas fa-detail mr-2"></i> Detail
                   </a>
@@ -143,7 +146,7 @@
                                     <i class="fas fa-edit mr-2 "></i>
                                       Edit
                                     </a>
-                  <form action="{{ route('produk.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                  <form action="{{ route('produk.hapusketerangan', $product->title) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit"

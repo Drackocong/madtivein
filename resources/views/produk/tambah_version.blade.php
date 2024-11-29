@@ -8,9 +8,11 @@
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
-<body class="bg-blue-500 flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-br flex from-blue-100 via-indigo-200 items-center justify-center to-purple-100 min-h-screen">
+
+
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md transition-transform transform hover:scale-105 duration-300 ease-in-out">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Tambah Produk</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Tambah Version</h1>
         @if (session('success'))
             <div class="bg-green-500 text-white p-3 rounded mb-5">{{ session('success') }}</div>
         @endif

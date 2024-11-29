@@ -24,18 +24,19 @@
         };
     </script>
 </head>
-<body class="font-sans bg-blue-500 min-h-screen flex items-center justify-center">
+<body class="font-sans bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-100 min-h-screen">
     <div class="container mx-auto px-6 py-8">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Edit Produk</h2>
 
         <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
-            <form
-                action="{{ route('produk.updateketerangan', $product->title) }}"
-                method="POST"
-                enctype="multipart/form-data"
-            >
-                @csrf
-                @method('PUT')
+
+
+
+
+
+        <form action="{{ route('produk.updateketerangan', $product->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
                 <!-- Nama Produk -->
                 <div class="mb-6">
@@ -46,7 +47,7 @@
                         type="text"
                         name="title"
                         id="title"
-                        value="{{ old('name', $product->title) }}"
+                        value="{{ old('title', $product->title) }}"
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         required
                     >
@@ -59,7 +60,7 @@
                         deskripsi
                     </label>
                     <textarea
-                        id="description"
+                        id="id"
                         name="description"
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         required

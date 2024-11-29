@@ -37,13 +37,13 @@ Route::put('/produk/{id}', [ProductController::class, 'updateproduk'])->middlewa
 
 
 Route::get('/produk/{id}/ediketerangan', [ProductController::class, 'editketerangan'])->middleware('auth')->name('produk.editketerangan');
-Route::put('/produk/{id}', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
+Route::put('/produk/{id}/updateketerangan', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
 
 
 Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
 
 
-Route::delete('/produk/{idketerangan}', [ProductController::class, 'hapusketerangan'])->name('produk.hapusketerangan');
+Route::delete('/produk/{id}', [ProductController::class, 'hapusketerangan'])->name('produk.hapusketerangan');
 
 Route::get('/produk/tambah_version', [ProductController::class, 'tambahversion'])->middleware('auth')->name('produk.tambah_version');
 
@@ -58,6 +58,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 // Rute detail produk - hanya bisa diakses setelah login
 Route::get('/produk/{id}/{product}', [ProductController::class, 'show'])->middleware('auth')->name('produk.show');
 
+
+Route::get('/produk/{id}/{product}', [ProductController::class, 'version1'])->middleware('auth')->name('produk.show');
+
 // Rute tambahan produk di halaman detail produk - hanya bisa diakses setelah login
 Route::get('/produk/tambah-keterangan', [ProductController::class, 'tambahKeterangan'])->middleware('auth')->name('produk.tambah_keterangan');
 Route::post('/produk/tambah-keterangan', [ProductController::class, 'simpanKeterangan'])->middleware('auth')->name('produk.simpan_keterangan');
@@ -68,7 +71,10 @@ Route::get('/produk-list', [ProductController::class, 'produkList'])->name('prod
 // route yang mengarah ke halaman produk_detail.blade.php
 Route::get('/produk/{id}', [ProductController::class, 'detail'])->name('produk.detail');
 
-
+// route halaman pengujung
+Route::get('/produk/details', [ProductController::class, 'details'])->name('produk.details');
 // route yang mengarah ke halaman produk_detail.blade.php
 Route::get('/produk/{id}/detail', [ProductController::class, 'produkdetail'])->name('produk.detailm');
 Route::get('produk/{id}/{name}/{version}', [ProductController::class, 'produkdetail'])->name('produk.produk_detail');
+// // route yang mengarah ke halaman produk_detail.blade.php
+// Route::get('/version', [ProductController::class, 'version1'])->name('produk.detail');
