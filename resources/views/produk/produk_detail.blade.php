@@ -58,10 +58,10 @@
         <div class="dropdown">
             <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">VERSION</button>
             <div class="dropdown-child">
-          @foreach ($version as $product)
+          @foreach ($versionn as $product)
 
 
-              <a href="/version">{{ $product->name }}</a>
+              <a href="/version1">{{ $product->name }}</a>
 
               @endforeach
             </div>
@@ -142,45 +142,20 @@
       function productPage() {
         return {
           sections: [
-            {
-              id: "judul",
-              title: "Judul",
-              content: `
-                <div class="flex flex-col items-start">
-                  <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $product->name }}</h1>
-                  <img src="{{ Storage::url($product->logo) }}" alt="Logo Produk" class="max-w-[200px] mb-4" />
-                  <h2 class="text-xl font-semibold text-gray-700 mb-4">Judul Keterangan Produk</h2>
-                </div>
-              `,
-            },
-            {
-              id: "keterangan",
-              title: "Keterangan",
+            @foreach ($product_detail as $item)
+                {
+                    id: "{{ $item->title }}", // ID unik dari setiap item
+                    title: "{{ $item->title }}", // Judul produk
+                    content: `
+                        <div class="flex flex-col items-start">
 
-            },
-            {
-              id: "fitur",
-              title: "Fitur Produk",
-              content: `
-                <ul class="list-disc list-inside text-gray-600">
-                  <li>Fitur 1: Deskripsi singkat fitur 1</li>
-                  <li>Fitur 2: Deskripsi singkat fitur 2</li>
-                  <li>Fitur 3: Deskripsi singkat fitur 3</li>
-                  <li>Fitur 4: Deskripsi singkat fitur 4</li>
-                </ul>
-              `,
-            },
-            {
-              id: "testimoni",
-              title: "Testimoni Video",
-              content: `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="aspect-w-16 aspect-h-9">
-                    <iframe src="/api/placeholder/300/200" frameborder="0" class="w-full h-full rounded-lg"></iframe>
-                  </div>
-                </div>
-              `,
-            },
+                            <h2 class="text-xl font-semibold text-gray-700 mb-4">{{ $item->description }}</h2>
+                        </div>
+                    `,
+                },
+                @endforeach
+
+
           ],
           currentSectionIndex: 0,
           scrollToSection(index) {

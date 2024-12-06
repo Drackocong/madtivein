@@ -79,51 +79,35 @@
       <!-- Nama Produk dan Logo Produk -->
       <div class="flex items-center justify-between mb-12">
         <div class="flex items-center animate__animated animate__fadeInLeft">
-          <img src="{{ asset('storage/' . $produk->logo) }}" alt="Logo Produk"
-            class="w-20 h-20 mr-4 rounded-full border-4 border-white shadow-lg transform hover:scale-110 transition duration-300 animate-float" />
-          <h2 class="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-            {{ $produk->name }}
-          </h2>
+
+
+
         </div>
-        <a href="{{ route('produk.tambah_keterangan') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
+        {{-- <a href="{{ route('produk.tambah_keterangann') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
           Tambah
-        </a>
+        </a> --}}
 
-
-
-          <a href="{{ route('produk.produk_detaill') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
-            Edit version
+        <a href="{{ route('produk.tambah_versionn') }}" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">
+            Tambah version
           </a>
-          <div class="dropdown">
-            <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">TampilkanVERSION</button>
+          {{-- <div class="dropdown">
+            <button class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105 animate__animated animate__fadeInRight">VERSION</button>
             <div class="dropdown-child">
-            @foreach ($versionn as $product)
+            {{-- @foreach ($version as $product)
 
-           <a href="{{ route('produk.produk_detaill') }}">{{ $product->name }}</a>
+    <a href="{{ route('produk.produk_detaill') }}">{{ $product->name }}</a>
 
-            @endforeach
+    @endforeach --}}
             </div>
 
-            <div class="dropdown-child">
-                @foreach ($versionn as $product)
-
-               <a href="{{ route('produk.produk_detaill') }}">{{ $product->name }}</a>
-
-                @endforeach
-                </div>
           </div>
-
-
-          <!-- Dropdown for selecting a product -->
 
       </div>
 
-      <h1 class="font-bold mb-16">
-        V.1
-      </h1>
+
 
       <h1 class="text-5xl md:text-6xl font-bold text-center text-gray-800 mb-16 animate__animated animate__fadeInDown animate__delay-1s">
-        Keterangan Produk
+        edit version
       </h1>
 
       <!-- Tabel Keterangan Produk -->
@@ -132,34 +116,33 @@
           <table class="min-w-full">
             <thead class="bg-gradient-to-r from-primary to-blue-500 text-white">
               <tr>
-                <th class="py-4 px-6 text-left font-semibold text-lg">Judul Keterangan</th>
-                <th class="py-4 px-6 text-left font-semibold text-lg">Keterangan Produk</th>
+                <th class="py-4 px-6 text-left font-semibold text-lg">version</th>
+
                 <th class="py-4 px-6 text-center font-semibold text-lg">Aksi</th>
               </tr>
             </thead>
 
-            @foreach ($Keterangan as $product )
+             @foreach ($versionn as $product)
 
             <tbody>
               <!-- Isi tabel diambil dari data produk -->
               <tr class="border-b border-blue-100 hover:bg-blue-50 transition duration-300">
 
-                <td class="py-6 px-6 text-gray-700 font-medium">{{ $product->title }}</td>
+                <td class="py-6 px-6 text-gray-700 font-medium">{{ $product->name }}</td>
 
-                <td class="py-6 px-6 text-gray-600">{{ $product->description}}</td>
 
 
                 <td class="py-6 px-6 flex justify-center space-x-4">
-                    <a href="{{ route('produk.produk_list', $product->id) }}"
+                    {{-- <a href=""
                     class="bg-blue-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <i class="fas fa-detail mr-2"></i> Detail
-                  </a>
+                  </a> --}}
 
-                    <a href="{{ route('produk.editketerangan', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
+                    <a href="{{ route('produk.editversionn', $product->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition hover-scale flex items-center">
                                     <i class="fas fa-edit mr-2 "></i>
                                       Edit
                                     </a>
-                  <form action="/hapusketerangan" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                  <form action="{{ route('produk.hapusversionn', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -168,7 +151,7 @@
                     </button>
 
                 </form>
-                @endforeach
+                 @endforeach
                 </td>
               </tr>
             </tbody>

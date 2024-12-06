@@ -36,20 +36,33 @@ Route::put('/produk/{id}', [ProductController::class, 'updateproduk'])->middlewa
 
 
 
-Route::get('/produk/{id}/ediketerangan', [ProductController::class, 'editketerangan'])->middleware('auth')->name('produk.editketerangan');
-Route::put('/produk/{id}/updateketerangan', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
+Route::get('/produk/{id}/editketerangans', [ProductController::class, 'editketerangans'])->middleware('auth')->name('produk.editketerangan');
+Route::put('/produk/{title}', [ProductController::class, 'updateketerangan'])->middleware('auth')->name('produk.updateketerangan');
 
 
-Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
+Route::get('/produk/{id}/editversionn', [ProductController::class, 'editversionn'])->middleware('auth')->name('produk.editversionn');
+Route::put('/produk/{id}', [ProductController::class, 'updateversionn'])->middleware('auth')->name('produk.updateversionn');
 
 
-Route::delete('/produk/{id}', [ProductController::class, 'hapusketerangan'])->name('produk.hapusketerangan');
+
+Route::delete('/produk/{id}/destroy', [ProductController::class, 'destroy'])->name('produk.destroy');
+
+
+Route::delete('/hapusketerangan', [ProductController::class, 'hapusketerangan'])->name('produk.hapusketerangan');
+
+
+Route::delete('/produk/{id}', [ProductController::class, 'hapusversionn'])->name('produk.hapusversionn');
 
 Route::get('/produk/tambah_version', [ProductController::class, 'tambahversion'])->middleware('auth')->name('produk.tambah_version');
 
 Route::post('/produk/tambah_version', [ProductController::class, 'simpanversion'])->middleware('auth')->name('produk.simpan_version');
 // Rute logout - hanya bisa diakses setelah login
 // Rute logout - hanya bisa diakses setelah login
+
+
+Route::get('/produk/tambah_versionn', [ProductController::class, 'tambahversionn'])->middleware('auth')->name('produk.tambah_versionn');
+
+Route::post('/produk/tambah_versionn', [ProductController::class, 'simpanversionn'])->middleware('auth')->name('produk.simpan_versionn');
 
 route::get('/logout',[AuthController::class,'auth'])->middleware('auth')->name ('logout');
 
@@ -59,11 +72,14 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 Route::get('/produk/{id}/{product}', [ProductController::class, 'show'])->middleware('auth')->name('produk.show');
 
 
-Route::get('/produk/{id}/{product}', [ProductController::class, 'version1'])->middleware('auth')->name('produk.show');
+// Route::get('/produk/{id}/{product}', [ProductController::class, 'version1'])->middleware('auth')->name('produk.show');
 
 // Rute tambahan produk di halaman detail produk - hanya bisa diakses setelah login
 Route::get('/produk/tambah-keterangan', [ProductController::class, 'tambahKeterangan'])->middleware('auth')->name('produk.tambah_keterangan');
 Route::post('/produk/tambah-keterangan', [ProductController::class, 'simpanKeterangan'])->middleware('auth')->name('produk.simpan_keterangan');
+
+
+
 // Route::delete('/produk/{id}/medissy', [ProductController::class, 'destroy'])->middleware('auth')->name('produk.destroy');
 // route halaman pengujung
 Route::get('/produk-list', [ProductController::class, 'produkList'])->name('produk.produk_list');
@@ -75,6 +91,12 @@ Route::get('/produk/{id}', [ProductController::class, 'detail'])->name('produk.d
 Route::get('/produk/details', [ProductController::class, 'details'])->name('produk.details');
 // route yang mengarah ke halaman produk_detail.blade.php
 Route::get('/produk/{id}/detail', [ProductController::class, 'produkdetail'])->name('produk.detailm');
-Route::get('produk/{id}/{name}/{version}', [ProductController::class, 'produkdetail'])->name('produk.produk_detail');
+// Route::get('/produk/{id}/{name}/{version}', [ProductController::class, 'produkdetail'])->name('produk.produk_detail');
 // // route yang mengarah ke halaman produk_detail.blade.php
-// Route::get('/version', [ProductController::class, 'version1'])->name('produk.detail');
+// // Route::get('/version', [ProductController::class, 'version1'])->name('produk.detail');
+// Route::get('/produk/{id}/produk_detaill', [ProductController::class, 'produk_detaill'])->name('produk.produk_detaill');
+// Route::get('/product/produk_detaill', [ProductController::class, 'produkdetaill'])->name('produk.produk_detaill');
+
+// Route::post('/produk/{produk_id}/version', [ProductController::class, 'tambahversionn']);
+// Route::get('/produk/{id}', [ProductController::class, 'showProdukWithVersions']);
+

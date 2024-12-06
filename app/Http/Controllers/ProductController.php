@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\editketerangan;
 use App\Models\Produk;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Keterangan;
+use App\Models\Product_detail;
 use App\Models\Version;
+use App\Models\versionn;
 
 class ProductController extends Controller
 {
@@ -62,22 +65,37 @@ class ProductController extends Controller
 
 
 
+
+    public function hapusversionn($id)
+    {
+        $product = versionn::findOrFail($id);
+
+
+        if ($product->logo) {
+            Storage::disk('public')->delete($product->logo);
+        }
+
+        $product->delete();
+        return redirect()->route('produk.hapusversionn')->with('success', 'Produk berhasil dihapus!');
+    }
+
+
     public function hapusketerangan($id)
     {
         // Temukan data keterangan berdasarkan ID
-        $product = Keterangan::findOrFail($id); // Jika tidak ditemukan, akan memunculkan error 404
+        $product = Product::findOrFail($id); // Jika tidak ditemukan, akan memunculkan error 404
 
         // Hapus data
         $product->delete();
 
         // Redirect ke halaman sebelumnya dengan pesan sukses
-        return redirect()->route('produk.index') // Ganti dengan rute yang sesuai
+        return redirect()->route('/produk/{id}/{product}') // Ganti dengan rute yang sesuai
                          ->with('success', 'Keterangan berhasil dihapus!');
 
     }
 
     public function edit($id) {
-        $product = Product::find($id);
+        $product = Produk::find($id);
         if (!$product) {
             return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
         }
@@ -93,7 +111,7 @@ class ProductController extends Controller
             'paragraph' => 'required|string',
         ]);
 
-        $product = Product::findOrFail($id);
+        $product = Produk::findOrFail($id);
         $product->name = $request->name;
         $product->paragraph = $request->paragraph;
 
@@ -123,57 +141,66 @@ class ProductController extends Controller
     }
 
 
-
-
-
-    public function version1($id, $product) {
-
-
-        $products = Product::paginate(3);
-        $produk = Product::findOrFail($id);
-        $version= version::all();
-
-
-         // Get Keterangan records where title is 'medisy'
-       $Keterangan = Keterangan::where('title', $product)->get() ;// Memfilter berdasarkan status produkget();
-
-
-        return view('produk.detail', compact('produk','version','Keterangan'));
-    }
-
-
-    public function version2($id) {
-
-
+    public function editketerangans($id) {
         $product = Keterangan::find($id);
-
+        if (!$product) {
+            return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
+        }
         return view('produk.editketerangan', compact('product'));
     }
 
+    public function editversionn($id) {
+        $versionn = versionn::find($id);
+        if (!$versionn) {
+            return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan');
+        }
+        return view('produk.editversionn', compact('versionn'));
+    }
 
 
 
 
 
-    public function updateketerangan(Request $request, $id)
+
+    public function updateversionn(Request $request, $id)
     {
-        // Validasi input
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+
         ]);
 
-        // Temukan item berdasarkan ID
-        $product = Keterangan::findOrFail($id);
+        $versionn = versionn::findOrFail($id);
+        $versionn->name = $request->name;
 
-        // Update data judul dan deskripsi
-        $product->name = $request->name;
+
+
+        $versionn->update();
+
+        return redirect()->route('produk.updateversionn')->with('success', 'Produk berhasil diperbarui!');
+    }
+
+
+
+
+
+
+    public function updateketerangan(Request $request, $description)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+
+        ]);
+
+        $product = Product::findOrFail($description);
+        $product->title = $request->title;
         $product->description = $request->description;
-        $product->save(); // Simpan perubahan ke database
 
-        // Redirect setelah update
-        return redirect()->route('produk.editketerangan', $product->id)
-                         ->with('success', 'Data berhasil diperbarui!');
+
+        $product->update();
+
+        return redirect()->route('produk.updateketerangan')->with('success', 'Produk berhasil diperbarui!');
     }
     public function show($id, $product)
 
@@ -181,14 +208,14 @@ class ProductController extends Controller
 
         $products = Product::paginate(3);
         $produk = Product::findOrFail($id);
-        $version= version::all();
+        $versionn= versionn::all();
 
 
          // Get Keterangan records where title is 'medisy'
        $Keterangan = Keterangan::where('title', $product)->get() ;// Memfilter berdasarkan status produkget();
 
 
-        return view('produk.detail', compact('produk','version','Keterangan'));
+        return view('produk.detail', compact('produk','versionn','Keterangan'));
     }
 
     public function tambahKeterangan()
@@ -203,6 +230,12 @@ class ProductController extends Controller
 
     }
 
+
+    public function tambahversionn()
+    {
+        return view('produk.tambah_versionn');
+
+    }
     public function simpanKeterangan(Request $request)
 {
 
@@ -242,10 +275,25 @@ public function detail($id)
 {
     // Mengambil produk berdasarkan ID
     $product = Product::findOrFail($id);
-    $version= version::all();
+    $versionn= versionn::all();
+    $product_detail = Product_detail::orderBy('id', 'asc')->get();
 
-    // Mengembalikan view dengan data produk
-    return view('produk.produk_detail', compact('product','version'));
+    return view('produk.produk_detail', compact('product','product_detail','versionn'));
+
+
+}
+
+public function produkdetaill()
+
+{
+//  // Mengambil produk berdasarkan ID
+//  $product = Product::findOrFail($id);
+//  $version= version::all();
+
+$versionn= versionn::all();
+
+ // Mengembalikan view dengan data produk
+ return view('produk.produk_detaill', compact('versionn'));
 }
 
 
@@ -254,15 +302,14 @@ public function produkdetail($id)
 {
     // Mengambil produk berdasarkan ID
     $product = Product::findOrFail($id);
-    $version= version::all();
+    $versionn= versionn::all();
 
-    $version =version::where('name', $version)->get() ;// Memfilter berdasarkan status produkget();
+
 
     // Mengembalikan view dengan data produk
    // Melakukan sesuatu dengan data produk atau parameter lainnya
-   return view('produk.detail', compact('product','idproduk'));
+   return view('produk.detail', compact('product','versionn'));
 }
-
  public function simpanversion(Request $request)
 {
 
@@ -276,6 +323,32 @@ public function produkdetail($id)
 
 
     version::create([
+        'name' => $request->name,
+
+
+    ]);
+
+
+
+
+
+
+
+}
+public function simpanversionn(Request $request)
+{
+
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+
+
+
+    ]);
+
+
+
+    versionn::create([
         'name' => $request->name,
 
 

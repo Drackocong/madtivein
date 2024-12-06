@@ -102,8 +102,8 @@
                                     <i class="fas fa-edit mr-2 "></i>
                                       Edit
                                     </a>
-                                        <form action="{{ route('produk.hapusketerangan', $product->id) }}" method="POST" style="display:inline;">
-                                         @csrf
+                                        {{-- <form action="{{ route('destroy', $product->id) }}" method="POST" style="display:inline;">
+                                         @csrf --}}
                                          @method('DELETE')
                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?');"><i class="fas fa-trash-alt mr-2"></i>Hapus</button>
                                      </form>

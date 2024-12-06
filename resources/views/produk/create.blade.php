@@ -6,9 +6,9 @@
     <title>Tambah Produk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
-<body class="bg-blue-500 flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-br flex from-blue-100 via-indigo-200 items-center justify-center to-purple-100 min-h-screen">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md transition-transform transform hover:scale-105 duration-300 ease-in-out">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Tambah Produk</h1>
         @if (session('success'))
@@ -32,9 +32,9 @@
             </div>
             <div class="mb-4">
                 <label for="paragraph" class="block text-gray-700 font-medium mb-2">Deskripsi Produk</label>
-                <textarea 
-                    id="paragraph" 
-                    name="paragraph" 
+                <textarea
+                    id="paragraph"
+                    name="paragraph"
                     rows="4"
                     class="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-y"
                     placeholder="Masukkan deskripsi produk..."
